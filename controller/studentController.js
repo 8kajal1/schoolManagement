@@ -14,7 +14,7 @@ studentController.register=async(req,res)=>{
     const insertBody=new Student(body)
     const result=await insertBody.save()
     res.send(result)
-
+    console.log('hello kajal')
 }
 studentController.find=async(req,res)=>{
     let query= req.query
