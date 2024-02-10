@@ -141,4 +141,29 @@ userController.changePassword = async (req, res) => {
 
     }
 }
+
+userController.changePassword1 = async (req, res) => {
+    let body = req.body
+    let exist = await userRepo.findOneUserByEmail(body)
+    if (exist != null) {
+        if (body.newPassword == body.confirmPassword) {
+            console.log('bvbvbvbvbv', body)
+            let isExistPassword = await bcrypt.compare(body.newPassword, exist.password)
+            console.log(isExistPassword)
+            if (!isExistPassword) {
+                bcrypt.hash(body.newPassword, saltRounds).then(async (hash) => {
+                    await User.updateOne({ email: body.email }, { $set: { password: hash } })
+                    res.send({msg:"password changed successfully"})
+                })
+            } else {
+                res.send({ err: "old password or new password can not be same" })
+            }  
+        } else {
+            res.send({ err: "please enter another password" })
+        }
+    } else {
+        res.send({ err: "user does not registered!" })
+
+    }
+}
 module.exports = userController
