@@ -1,5 +1,4 @@
 const mongoose=require('mongoose')
-mongoose.connect('mongodb://localhost/schoolDB',{useNewUrlParser:true})
 const studentSchema=new mongoose.Schema({
     fName:String,
     lName:String,

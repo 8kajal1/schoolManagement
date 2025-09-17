@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/schoolDB', { useNewUrlParser: true })
 const userSchema = new mongoose.Schema({
     name: String,
     email: String,
